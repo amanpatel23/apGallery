@@ -1,0 +1,55 @@
+
+
+.form__inner {
+    width: 650px;
+    margin: auto;
+    /* background: cyan; */
+    text-align: center;
+    padding: 24px;
+    border: 1.5px solid #fff;
+
+}
+
+.addalbum__text{
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.addalbum__form {
+    width: max-content;
+    margin: auto;
+}
+
+.input__container {
+
+    /* background: cyan; */
+    display: flex;
+    flex-direction: column;
+}
+
+.addalbum__form input{
+    font-size: 1.2rem;
+    border: none;
+    background: #fff;
+    outline: none;
+    padding: 4px;
+    margin-bottom: 14px;
+}
+
+.addalbum__form input::placeholder {
+    font-size: 0.9rem;
+    color: #262626;
+    opacity: 0.8;
+}
+
+.addalbum__form button {
+    font-size: 1.1rem;
+    border: none;
+    background: #262626;
+    padding: 4px 28px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+}

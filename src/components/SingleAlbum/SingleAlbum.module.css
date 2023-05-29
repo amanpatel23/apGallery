@@ -1,0 +1,25 @@
+
+.album__outer {
+    /* background: green; */
+    text-align: center;
+    border: 1.5px solid #262626;
+    padding: 8px;
+    cursor: pointer;
+    width: 140px;
+}
+
+.folder__icon {
+    width: 80px;
+    /* background: cyan; */
+}
+
+.album__name {
+    color: #fff;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
