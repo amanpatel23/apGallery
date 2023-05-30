@@ -6,7 +6,8 @@ function ImageCard(props) {
     const { image, deleteImage, onCardClick } = props;
     const { imageName, imageUrl } = image;
 
-    function onDeleteClick() {
+    function onDeleteClick(e) {
+        e.stopPropagation();
         deleteImage(image.imageId);
     }
 

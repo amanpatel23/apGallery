@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ImageCard from '../ImageCard/ImageCard';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
 import styles from './Images.module.css';
@@ -9,7 +9,7 @@ function Images(props) {
     const [currCarouselImage, setCurrCarouselImage] = useState(null);
     const [currCarouselImageUrl, setCurrCarouselImageUrl] = useState('');
 
-    const { album, showImages, deleteImage } = props;
+    const { album, showImages, deleteImage, showForm, formVisible } = props;
     const { imagesInfo } = album;
 
     function onClickHandler() {
@@ -21,17 +21,34 @@ function Images(props) {
         setShowCarousel(true);
         setCurrCarouselImage(idx);
         setCurrCarouselImageUrl(imagesInfo[idx].imageUrl);
+        console.log('onCardClick', idx);
     }
 
     function onClickCarouselButton(dir) {
-        const len = imagesInfo.length;
-        if (dir === 'prev') {
-            setCurrCarouselImage((currCarouselImage - 1 + len) % len);
-        } else {
-            setCurrCarouselImage((currCarouselImage + 1) % len);
-        }
+        setCurrCarouselImage((prevCarouselImage) => {
+            const len = imagesInfo.length;
+            if (dir === 'prev') {
+                return ((prevCarouselImage - 1 + len) % len);
+            } else {
+                return ((prevCarouselImage + 1) % len);
+            }
+        });
+    }
 
-        setCurrCarouselImageUrl(imagesInfo[currCarouselImage].imageUrl);
+    useEffect(() => {
+        if (currCarouselImage !== null) {
+            setCurrCarouselImageUrl(imagesInfo[currCarouselImage].imageUrl);
+        }
+    }, [currCarouselImage])
+
+    function closeCarouselHandler() {
+        setShowCarousel(false);
+        setCurrCarouselImage(null);
+        setCurrCarouselImageUrl('');
+    }
+    
+    function clickedFormBtn() {
+        showForm();
     }
 
     return (
@@ -45,12 +62,16 @@ function Images(props) {
                         </div>
                         <div className={styles.album__name}><p>Images In {album.albumName}</p></div>
                     </div>
-                    <div className={styles.images__header_ss}>
+                    <div onClick={clickedFormBtn} className={styles.images__header_ss}>
                         <div className={styles.add_image__icon}>
-                        <i className="fa-solid fa-circle-plus"></i>
+                            {formVisible 
+                            ? 
+                            <i className="fa-solid fa-circle-minus"></i> 
+                            : 
+                            <i className="fa-solid fa-circle-plus"></i>}
                         </div>
                         <div className={styles.add_image__text}>
-                            <p>Add Image</p>
+                            <p>{formVisible ? 'Close' : 'Add Image'}</p>
                         </div>
                     </div>
                 </div>
@@ -70,6 +91,7 @@ function Images(props) {
                 <ImageCarousel 
                 imageUrl={currCarouselImageUrl} 
                 onClickCarouselButton={onClickCarouselButton}
+                closeCarousel={closeCarouselHandler}
                 />
                 }
             </div>

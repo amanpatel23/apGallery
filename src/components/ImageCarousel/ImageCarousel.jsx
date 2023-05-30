@@ -3,7 +3,7 @@ import styles from './ImageCarousel.module.css'
 
 function ImageCarousel(props) {
 
-    const { imageUrl, onClickCarouselButton } = props;
+    const { imageUrl, onClickCarouselButton, closeCarousel } = props;
     console.log(imageUrl);
 
     function clickNextButton() {
@@ -12,6 +12,10 @@ function ImageCarousel(props) {
 
     function clickPrevButton() {
         onClickCarouselButton('prev');
+    }
+
+    function clickCloseButton() {
+        closeCarousel();
     }
 
     return (
@@ -24,8 +28,11 @@ function ImageCarousel(props) {
                 <div onClick={clickNextButton} className={styles.next__btn}>
                     <i className="fa-solid fa-circle-arrow-right"></i>
                 </div>
-                <div onClick={clickNextButton} className={styles.prev__btn}>
+                <div onClick={clickPrevButton} className={styles.prev__btn}>
                     <i className="fa-solid fa-circle-arrow-left"></i>
+                </div>
+                <div onClick={clickCloseButton} className={styles.close__btn}>
+                    <i className="fa-solid fa-circle-xmark"></i>
                 </div>
             </div>
         </div>

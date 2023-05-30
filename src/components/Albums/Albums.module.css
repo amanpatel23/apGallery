@@ -4,7 +4,39 @@
     margin-top: 32px;
 }
 
-.albums__inner {
+.albums__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background: #fff; */
+}
+
+.albums__header_ss {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: 1.5px solid #fff;
+    cursor: pointer;
+}
+
+.albums__text {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-left: 12px;
+}
+
+.add_album__icon i{
+    font-size: 1.2rem;
+}
+
+.add_album__text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+.albums__container {
+    margin-top: 24px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
     grid-gap: 20px !important;

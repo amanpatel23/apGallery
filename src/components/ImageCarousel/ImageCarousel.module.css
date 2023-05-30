@@ -4,9 +4,9 @@
     width: 500px;
     height: 500px;
     background: #262626;
-    top: 50%;
+    top: 60%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
 
 }
 
@@ -34,7 +34,6 @@
     /* font-size: 1.6rem; */
     cursor: pointer;
     width: min-content;
-    padding: 4px;
 }
 
 .prev__btn {
@@ -44,4 +43,16 @@
 .next__btn i, .prev__btn i {
     font-size: 1.6rem;
     color: #fff;
+}
+
+.close__btn {
+    position: absolute;
+    top: -1.5%;
+    right: -1.5%;
+    cursor: pointer;
+}
+
+.close__btn i {
+    font-size: 1.8rem;
+    color: red;
 }

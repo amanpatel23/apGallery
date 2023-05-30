@@ -12,6 +12,8 @@ function App() {
   const [albums, setAlbums] = useState([]);
   const [showImages, setShowImages] = useState(false);
   const [albumInfo, setAlbumInfo] = useState(null);
+  const [showNewAlbumForm, setShowNewAlbumForm] = useState(false);
+  const [showNewImageForm, setShowNewImageForm] = useState(false);
 
   useEffect(() => {
     const unsubscribeAlbums = onSnapshot(query(collection(db, 'albums'), orderBy('timestamp', 'desc')), (snapshot) => {
@@ -25,19 +27,6 @@ function App() {
       unsubscribeAlbums();
     };
   }, []);
-
-  // useEffect(() => {
-  //   if (!albumInfo) return;
-
-  //   const unsubscribeImages = onSnapshot(doc(db, 'albums', albumInfo.id), (snapshot) => {
-  //     const updatedAlbumInfo = { id: snapshot.id, ...snapshot.data() };
-  //     setAlbumInfo(updatedAlbumInfo);
-  //   });
-
-  //   return () => {
-  //     unsubscribeImages();
-  //   };
-  // }, [albumInfo]);
 
   const handleAddAlbum = async (albumName) => {
     const timestamp = new Date();
@@ -82,6 +71,14 @@ function App() {
     setAlbumInfo(currAlbum);
   };
 
+  const addNewAlbumFormHandler = () => {
+    setShowNewAlbumForm(!showNewAlbumForm);
+  }
+
+  const addNewImageFormHandler = () => {
+    setShowNewImageForm(!showNewImageForm);
+  }
+
   return (
     <>
       <Navbar />
@@ -89,16 +86,24 @@ function App() {
         <div className={styles.body__inner}>
           {showImages ? (
             <>
-              <AddImageForm addImage={handleAddImage} />
+              {showNewImageForm && <AddImageForm addImage={handleAddImage} />}
               <Images 
               album={albumInfo} 
               showImages={showImagesHandler} 
-              deleteImage={handleDeleteImage} />
+              deleteImage={handleDeleteImage} 
+              showForm={addNewImageFormHandler}
+              formVisible={showNewImageForm}
+              />
             </>
           ) : (
             <>
-              <AddAlbumForm addAlbum={handleAddAlbum} />
-              <Albums albums={albums} showImages={showImagesHandler} />
+              {showNewAlbumForm && <AddAlbumForm addAlbum={handleAddAlbum} />}
+              <Albums 
+              albums={albums} 
+              showImages={showImagesHandler} 
+              showForm={addNewAlbumFormHandler}
+              formVisible={showNewAlbumForm}
+              />
             </>
           )}
         </div>
