@@ -4,10 +4,10 @@
     width: 250px;
     height: 300px;
     cursor: pointer;
+    position: relative;
 }
 
 .card__inner {
-    position: relative;
     padding: 6px 6px 14px 6px;
 }
 
@@ -28,17 +28,25 @@
 
 .action__div {
     position: absolute;
-    top: -5%;
-    right: -5%;
+    top: -7%;
+    right: -7%;
     display: none;
 }
 
 .action__div i {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: #262626;
-    background: red;
+    background: #FF0000;
     padding: 12px;
     border-radius: 50%;
+}
+
+.update__btn {
+    margin-top: 4px;
+}
+
+.update__btn i {
+    background: #418EF2;
 }
 
 .card__outer:hover .action__div {

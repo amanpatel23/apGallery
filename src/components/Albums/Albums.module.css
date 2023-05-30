@@ -19,6 +19,11 @@
     cursor: pointer;
 }
 
+.close__btn {
+    background: #FF0000;
+    border: 1.5px solid #000;
+}
+
 .albums__text {
     font-size: 1.6rem;
     font-weight: 700;

@@ -10,11 +10,14 @@
 
 }
 
-.addalbum__text{
+.addalbum__text p{
     font-size: 1.6rem;
     font-weight: 800;
     margin-bottom: 8px;
     color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .addalbum__form {
@@ -44,11 +47,16 @@
     opacity: 0.8;
 }
 
+.button__container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .addalbum__form button {
     font-size: 1.1rem;
     border: none;
     background: #262626;
-    padding: 4px 28px;
+    padding: 4px 38px;
     color: #fff;
     cursor: pointer;
     font-weight: 700;

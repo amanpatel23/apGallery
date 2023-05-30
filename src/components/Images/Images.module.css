@@ -24,15 +24,29 @@
     cursor: pointer;
 }
 
+.close__btn {
+    background: #FF0000;
+    border: 1.5px solid #000;
+}
+
 .album__name {
     font-size: 1.6rem;
     font-weight: 700;
     margin-left: 12px;
 }
 
-.back__btn img {
-    width: 45px;
+.back__btn {
     cursor: pointer;
+    background: #fff;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    
+}
+
+.back__btn img {
+    width: 100%;
+    padding: 8px;
 }
 
 .add_image__icon i{
@@ -50,4 +64,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
     grid-gap: 20px !important;
+}
+
+.no_images {
+    font-size: 1.4rem;
+    font-weight: 500;
 }

@@ -19,7 +19,7 @@ function Albums(props) {
                     <div className={styles.albums__header_ff}>
                         <div className={styles.albums__text}><p>Albums</p></div>
                     </div>
-                    <div onClick={clickedShowFormBtn} className={styles.albums__header_ss}>
+                    <div onClick={clickedShowFormBtn} className={styles.albums__header_ss + ' ' + (formVisible ? styles.close__btn : '')}>
                         <div className={styles.add_album__icon}>
                             {formVisible 
                             ? 

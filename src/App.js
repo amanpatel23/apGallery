@@ -3,6 +3,8 @@ import AddAlbumForm from './components/AddAlbumForm/AddAlbumForm';
 import Albums from './components/Albums/Albums';
 import AddImageForm from './components/AddImageForm/AddImageForm';
 import Images from './components/Images/Images';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from 'react';
 import { db } from './firebaseConfig';
 import styles from './App.module.css';
@@ -14,6 +16,7 @@ function App() {
   const [albumInfo, setAlbumInfo] = useState(null);
   const [showNewAlbumForm, setShowNewAlbumForm] = useState(false);
   const [showNewImageForm, setShowNewImageForm] = useState(false);
+  const [editingMode, setEditingMode] = useState(null);
 
   useEffect(() => {
     const unsubscribeAlbums = onSnapshot(query(collection(db, 'albums'), orderBy('timestamp', 'desc')), (snapshot) => {
@@ -31,6 +34,11 @@ function App() {
   const handleAddAlbum = async (albumName) => {
     const timestamp = new Date();
     await addDoc(collection(db, 'albums'), { albumName, timestamp, imagesInfo: [] });
+
+    toast.success('Album added successfully!', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000
+    });
   };
 
   const handleAddImage = async (imageInfo) => {
@@ -43,6 +51,11 @@ function App() {
     const updatedImagesInfo = [imageInfoObj, ...albumInfo.imagesInfo];
     await updateDoc(albumDocRef, {
       imagesInfo: updatedImagesInfo,
+    });
+
+    toast.success('Image added successfully!', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000
     });
 
     setAlbumInfo((prevAlbumInfo) => ({
@@ -60,6 +73,13 @@ function App() {
       (image) => image.imageId !== imageId
     );
     await updateDoc(albumDocRef, { imagesInfo: updatedImagesInfo });
+
+    toast.success('Image deleted successfully!', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000
+    });
+
+
     setAlbumInfo((prevAlbumInfo) => ({
       ...prevAlbumInfo,
       imagesInfo: updatedImagesInfo
@@ -69,6 +89,7 @@ function App() {
   const showImagesHandler = (currAlbum) => {
     setShowImages(!showImages);
     setAlbumInfo(currAlbum);
+    setEditingMode(null);
   };
 
   const addNewAlbumFormHandler = () => {
@@ -77,22 +98,66 @@ function App() {
 
   const addNewImageFormHandler = () => {
     setShowNewImageForm(!showNewImageForm);
+    setEditingMode(null);
+  }
+
+  const editImageHandler = (clickedImage) => {
+    setEditingMode(clickedImage);
+    setShowNewImageForm(true);
+  } 
+
+  const updateImageHandler = async (updatedImage) => {
+    const albumDocRef = doc(db, 'albums', albumInfo.id);
+    const albumDocSnanpshot = await getDoc(albumDocRef);
+    const albumData = albumDocSnanpshot.data();
+
+    const updatedImagesInfo = albumData.imagesInfo.map(
+      (image) => {
+        if (image.imageId !== updatedImage.imageId) {
+          return image;
+        } else {
+          return updatedImage
+        }
+      }
+    );
+
+    await updateDoc(albumDocRef, { imagesInfo: updatedImagesInfo });
+
+    toast.success('Image updated successfully!', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000
+    });
+
+
+    setAlbumInfo((prevAlbumInfo) => ({
+      ...prevAlbumInfo,
+      imagesInfo: updatedImagesInfo
+    }))
+    setEditingMode(null);
   }
 
   return (
     <>
+      <ToastContainer />
       <Navbar />
       <div className={styles.body__outer}>
         <div className={styles.body__inner}>
           {showImages ? (
             <>
-              {showNewImageForm && <AddImageForm addImage={handleAddImage} />}
+              {showNewImageForm 
+              && 
+              <AddImageForm 
+              addImage={handleAddImage}
+              editingMode={editingMode}
+              updateImage={updateImageHandler}
+              />}
               <Images 
               album={albumInfo} 
               showImages={showImagesHandler} 
               deleteImage={handleDeleteImage} 
               showForm={addNewImageFormHandler}
               formVisible={showNewImageForm}
+              editImage={editImageHandler}
               />
             </>
           ) : (

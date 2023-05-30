@@ -4,7 +4,6 @@ import styles from './ImageCarousel.module.css'
 function ImageCarousel(props) {
 
     const { imageUrl, onClickCarouselButton, closeCarousel } = props;
-    console.log(imageUrl);
 
     function clickNextButton() {
         onClickCarouselButton('next');

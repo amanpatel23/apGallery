@@ -9,7 +9,7 @@ function Images(props) {
     const [currCarouselImage, setCurrCarouselImage] = useState(null);
     const [currCarouselImageUrl, setCurrCarouselImageUrl] = useState('');
 
-    const { album, showImages, deleteImage, showForm, formVisible } = props;
+    const { album, showImages, deleteImage, showForm, formVisible, editImage } = props;
     const { imagesInfo } = album;
 
     function onClickHandler() {
@@ -21,7 +21,6 @@ function Images(props) {
         setShowCarousel(true);
         setCurrCarouselImage(idx);
         setCurrCarouselImageUrl(imagesInfo[idx].imageUrl);
-        console.log('onCardClick', idx);
     }
 
     function onClickCarouselButton(dir) {
@@ -51,18 +50,22 @@ function Images(props) {
         showForm();
     }
 
+    function clickedUpdateButtonHandler(clickedImage) {
+        editImage(clickedImage);
+    }
+
     return (
         <>
         <div className={styles.images__outer}>
             <div className={styles.images__inner}>
-                <div className={styles.images__header}>
+                {!showCarousel && <div className={styles.images__header}>
                     <div className={styles.images__header_ff}>
                         <div onClick={onClickHandler} className={styles.back__btn}>
                             <img src="/images/backBtn_icon.png" alt="go back" />
                         </div>
                         <div className={styles.album__name}><p>Images In {album.albumName}</p></div>
                     </div>
-                    <div onClick={clickedFormBtn} className={styles.images__header_ss}>
+                    <div onClick={clickedFormBtn} className={styles.images__header_ss + ' ' + (formVisible ? styles.close__btn : '')}>
                         <div className={styles.add_image__icon}>
                             {formVisible 
                             ? 
@@ -74,17 +77,20 @@ function Images(props) {
                             <p>{formVisible ? 'Close' : 'Add Image'}</p>
                         </div>
                     </div>
-                </div>
+                </div>}
 
-                <div className={styles.images__container}>
-                    {imagesInfo.map((image) => (
+                {!showCarousel && <div className={styles.images__container}>
+                    {imagesInfo.length === 0 ? 
+                    <p className={styles.no_images}>Not A Single Image Bro!</p> : 
+                    imagesInfo.map((image) => (
                             <ImageCard 
-                            key={image.id} 
+                            key={image.imageId} 
                             image={image} 
                             deleteImage={deleteImage}
                             onCardClick={onCardClickHandler}
+                            handleClickedUpdateButton={clickedUpdateButtonHandler}
                     />))}
-                </div>
+                </div>}
 
                 {
                 showCarousel && 

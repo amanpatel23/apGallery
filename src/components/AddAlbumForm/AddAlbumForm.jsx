@@ -5,10 +5,14 @@ function AddAlbumForm(props) {
 
     const inputRef = useRef(null);
 
-    const handleFormSubmit = (e) => {
+    function handleFormSubmit(e) {
         e.preventDefault();
         const albumName = inputRef.current.value;
         props.addAlbum(albumName);
+        clearFormField();
+    }
+
+    function clearFormField() {
         inputRef.current.value = '';
     }
 
@@ -22,7 +26,8 @@ function AddAlbumForm(props) {
                 <form onSubmit={handleFormSubmit} className={styles.addalbum__form}>
                     <div className={styles.input__container}>
                         <input ref={inputRef} onChange={(e) => e.target.value} type='text' placeholder='Album Name' required/>
-                        <button>Add</button>
+                        <button type='submit'>Add</button>
+                        <button type='button' onClick={clearFormField}>Clear</button>
                     </div>
                 </form>
             </div>
