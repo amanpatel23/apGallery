@@ -3,23 +3,28 @@ import styles from './ImageCard.module.css';
 
 function ImageCard(props) {
 
+    // destructuring the props
     const { image, deleteImage, onCardClick, handleClickedUpdateButton } = props;
     const { imageId, imageName, imageUrl } = image;
 
+    // delete the image
     function onDeleteClick(e) {
         e.stopPropagation();
         deleteImage(imageId);
     }
 
+    // show carousel when clicked on image card
     function onCardClickHandler() {
         onCardClick(imageId);
     }
 
+    // handling update button click on the image card
     function clickedUpdateButton(e) {
         e.stopPropagation();
         handleClickedUpdateButton(image);
     }
 
+    // jsx
     return (
         <>
         <div onClick={onCardClickHandler} className={styles.card__outer}>

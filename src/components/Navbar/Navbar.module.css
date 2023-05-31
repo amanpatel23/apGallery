@@ -12,6 +12,8 @@
 .logo__container {
     display: flex;
     align-items: center;
+    cursor: pointer;
+    width: fit-content;
 }
 
 .logo__container p {

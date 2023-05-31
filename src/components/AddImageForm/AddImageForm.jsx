@@ -3,11 +3,14 @@ import styles from './AddImageForm.module.css';
 
 function AddImageForm(props) {
 
+    // destructuring props
     const { addImage, editingMode, updateImage } = props;
 
+    // htlm input field ref
     const imageNameRef = useRef(null);
     const imageUrlRef = useRef(null);
 
+    // handle form submission for adding a new image
     const handleFormSubmit = (e) => {
         e.preventDefault();
         let imageInfo = { 
@@ -24,11 +27,13 @@ function AddImageForm(props) {
         clearFormField();
     }
 
+    // clear the input field
     function clearFormField() {
         imageNameRef.current.value = '';
         imageUrlRef.current.value = '';
     }
 
+    // fill the form with image info when the editing mode is on
     useEffect(() => {
         if (editingMode) {
             const { imageName, imageUrl } = editingMode;
@@ -39,6 +44,7 @@ function AddImageForm(props) {
         }
     }, [editingMode])
 
+    // jsx
     return (
         <>
         <form onSubmit={handleFormSubmit} className={styles.form__outer}>
@@ -48,9 +54,11 @@ function AddImageForm(props) {
                 </div>
                 <div className={styles.addalbum__form}>
                     <div className={styles.input__container}>
+                        {/* input field for image name and image url */}
                         <input ref={imageNameRef} type='text' placeholder='Image Name' required />
                         <input ref={imageUrlRef} type='text' placeholder='Image URL' required />
                         <div className={styles.button__container}>
+                            {/* buttons for submit form and clear the form */}
                             <button type='submit'>{editingMode ? 'Edit' : 'Add'}</button>
                             <button type='button' onClick={clearFormField}>Clear</button>
                         </div>
