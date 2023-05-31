@@ -1,3 +1,25 @@
+### Hosted Link:
+https://apgallery.netlify.app/
+
+## App Components 
+1. Navbar
+2. Albums
+3. SingleAlbum
+4. AddAlbumForm
+5. Images
+6. AddImageForm
+7. ImageCard
+8. ImageCarousel
+
+## Features
+1. Users can create a new album
+2. Users can add multiple photos inside any album
+3. Users can see photos in image carousel
+4. Users can update the details of the existing image
+5. Users can delete any image from any album
+6. All the albums and images informations are saved in firebase database
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
